@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trading Panel Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <header>
+      <img src="icon-64.png" alt="">
+      <div><h1>Server settings</h1><p>Polymarket Trading Panel</p></div>
+    </header>
+    <form id="server-form">
+      <label>HTTP API base URL<input id="api-base-url" type="url" placeholder="http://server:port" autocomplete="url" required></label>
+      <label>Trading WebSocket URL<input id="trade-socket-url" type="url" placeholder="wss://server:port" autocomplete="url" required></label>
+      <div class="actions">
+        <button id="test" class="secondary" type="button">Test connection</button>
+        <button id="save" type="submit">Save</button>
+      </div>
+    </form>
+    <p id="status" role="status"></p>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>
