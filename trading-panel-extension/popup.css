@@ -3,12 +3,12 @@ html, body {
   margin: 0;
   background: Canvas;
   color: CanvasText;
-  font: menu;
+  font: 15.6px/1.4 system-ui, sans-serif;
 }
 
 main { padding: 14px; }
 main > p { margin: 0 0 14px; }
 .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 button { min-width: 68px; padding: 5px 12px; font: inherit; }
-.message { min-height: 0; margin: 9px 0 0; color: #b00020; font-size: 11px; }
+.message { min-height: 0; margin: 9px 0 0; color: #b00020; font-size: 13.2px; }
 .message:empty { display: none; }

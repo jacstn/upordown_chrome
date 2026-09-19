@@ -3,24 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trading Panel Settings</title>
+  <title>Trading Bridge Settings</title>
   <link rel="stylesheet" href="options.css">
 </head>
 <body>
   <main>
     <header>
       <img src="icon-64.png" alt="">
-      <div><h1>Server settings</h1><p>Polymarket Trading Panel</p></div>
+      <div><h1>Trading Bridge</h1><p>Polymarket Trading Panel connection</p></div>
     </header>
+    <p class="intro">Connect to the companion service you installed on a local or remote machine.</p>
     <form id="server-form">
-      <label>HTTP API base URL<input id="api-base-url" type="url" placeholder="http://server:port" autocomplete="url" required></label>
-      <label>Trading WebSocket URL<input id="trade-socket-url" type="url" placeholder="wss://server:port" autocomplete="url" required></label>
+      <label>Bridge HTTP API URL<input id="api-base-url" type="url" placeholder="http://host:port" autocomplete="url" required></label>
+      <label>Bridge WebSocket URL<input id="trade-socket-url" type="url" placeholder="wss://host:port" autocomplete="url" required></label>
       <div class="actions">
-        <button id="test" class="secondary" type="button">Test connection</button>
+        <button id="test" class="secondary" type="button">Test Bridge</button>
         <button id="save" type="submit">Save</button>
       </div>
     </form>
     <p id="status" role="status"></p>
+    <section class="orders-section" aria-labelledby="orders-heading">
+      <div class="section-heading">
+        <div>
+          <h2 id="orders-heading">Current CLOB orders</h2>
+          <p id="orders-status" role="status">Waiting for Trading Bridge settings…</p>
+        </div>
+        <button id="refresh-orders" class="secondary" type="button">Refresh</button>
+      </div>
+      <div id="orders-list" class="orders-list" aria-live="polite"></div>
+    </section>
   </main>
   <script src="options.js"></script>
 </body>

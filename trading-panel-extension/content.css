@@ -15,7 +15,7 @@
   background: rgba(237, 243, 249, .96);
   box-shadow: 0 14px 42px rgba(50, 75, 101, .25);
   color: #263b51;
-  font: 13px/1.4 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font: 15.6px/1.4 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   box-sizing: border-box;
 }
 
@@ -58,97 +58,122 @@
 
 #five-minute-trading-extension-shell .tp-logo { width: 30px; height: 30px; border-radius: 7px; background: #294760; box-shadow: 0 0 0 1px rgba(255, 255, 255, .2), 0 2px 7px rgba(20, 40, 60, .3); }
 #five-minute-trading-extension-shell .tp-heading { display: grid; min-width: 0; flex: 1; }
-#five-minute-trading-extension-shell .tp-heading strong { font-size: 13px; font-weight: 850; text-transform: uppercase; letter-spacing: .045em; }
-#five-minute-trading-extension-shell .tp-heading span { overflow: hidden; color: #d9e7f3; font: 10px ui-monospace, monospace; text-overflow: ellipsis; white-space: nowrap; }
-#five-minute-trading-extension-shell .tp-connection { display: flex; align-items: center; gap: 4px; color: #e1edf7; font: 10px ui-monospace, monospace; }
-#five-minute-trading-extension-shell #tp-balance { font-size: 11.5px; font-weight: 750; }
+#five-minute-trading-extension-shell .tp-heading strong { font-size: 15.6px; font-weight: 850; text-transform: uppercase; letter-spacing: .045em; }
+#five-minute-trading-extension-shell .tp-heading span { overflow: hidden; color: #d9e7f3; font: 12px ui-monospace, monospace; text-overflow: ellipsis; white-space: nowrap; }
+#five-minute-trading-extension-shell .tp-connection { display: flex; align-items: center; gap: 4px; color: #e1edf7; font: 12px ui-monospace, monospace; }
+#five-minute-trading-extension-shell #tp-balance { font-size: 13.8px; font-weight: 750; }
 #five-minute-trading-extension-shell .tp-connection i { width: 7px; height: 7px; border-radius: 50%; background: #ff647c; box-shadow: 0 0 8px #ff647c; }
 #five-minute-trading-extension-shell .tp-connection.connected i { background: #26d7a0; box-shadow: 0 0 8px #26d7a0; }
-#five-minute-trading-extension-shell #tp-minimize { width: 28px; min-height: 28px; padding: 0 0 4px; border-color: #8da6bc; background: #36556f; color: #fff; font-size: 20px; }
-#five-minute-trading-extension-shell #tp-settings { width: 28px; min-height: 28px; padding: 0; border-color: #8da6bc; background: #36556f; color: #fff; font-size: 17px; }
+#five-minute-trading-extension-shell #tp-minimize { width: 28px; min-height: 28px; padding: 0 0 4px; border-color: #8da6bc; background: #36556f; color: #fff; font-size: 24px; }
+#five-minute-trading-extension-shell #tp-settings { width: 28px; min-height: 28px; padding: 0; border-color: #8da6bc; background: #36556f; color: #fff; font-size: 20.4px; }
 
 #five-minute-trading-extension-shell .tp-body { display: flex; min-height: 0; flex: 1; flex-direction: column; padding: 8px; overflow: hidden; }
 #five-minute-trading-extension-shell .tp-prices { display: flex; align-items: center; gap: 10px; padding: 5px 7px; border: 1px solid #b3c4d5; border-radius: 8px; background: #e5eef7; color: #60778f; }
-#five-minute-trading-extension-shell .tp-prices span { margin-right: auto; font-size: 10px; font-weight: 750; text-transform: uppercase; }
-#five-minute-trading-extension-shell .tp-prices strong { color: #2d435a; font-size: 11px; }
+#five-minute-trading-extension-shell .tp-prices > span { margin-right: auto; font-size: 12px; font-weight: 750; text-transform: uppercase; }
+#five-minute-trading-extension-shell .tp-prices strong { color: #2d435a; font-size: 13.2px; }
+#five-minute-trading-extension-shell .tp-prices strong span { display: inline-block; max-width: 96px; overflow: hidden; font-size: 12px; text-overflow: ellipsis; vertical-align: bottom; white-space: nowrap; }
 #five-minute-trading-extension-shell #tp-up { color: #17845f; }
 #five-minute-trading-extension-shell #tp-down { color: #c53d56; }
 
 #five-minute-trading-extension-shell .tp-tabs { display: flex; gap: 5px; margin: 7px 0 6px; }
-#five-minute-trading-extension-shell .tp-tabs button { flex: 1; border-color: #a9b9ca; background: #d4e0eb; color: #334e67; font-size: 11px; font-weight: 800; text-shadow: none; }
+#five-minute-trading-extension-shell .tp-tabs button { flex: 1; border-color: #a9b9ca; background: #d4e0eb; color: #334e67; font-size: 13.2px; font-weight: 800; text-shadow: none; }
 #five-minute-trading-extension-shell .tp-tabs button[data-mode="market"].active { border-color: #23634f; background: #2f8068; }
 #five-minute-trading-extension-shell .tp-tabs button[data-mode="limit"].active { border-color: #2f6292; background: #3e78ae; }
 #five-minute-trading-extension-shell .tp-tabs button[data-mode="quick"].active { border-color: #7e5522; background: #9a6b2d; }
 #five-minute-trading-extension-shell .tp-tabs button[data-mode="multi-limit"].active { border-color: #58417d; background: #6d5198; }
+#five-minute-trading-extension-shell .tp-tabs button[data-mode="sym"].active { border-color: #5b3e7d; background: #8153a5; }
 #five-minute-trading-extension-shell .tp-tabs button[data-mode="market-tp"].active { border-color: #296771; background: #357f89; }
 #five-minute-trading-extension-shell .tp-tabs button[data-mode="sq"].active { border-color: #744769; background: #925983; }
 #five-minute-trading-extension-shell .tp-tabs button[data-mode="mint"].active { border-color: #805b12; background: #a67618; }
 #five-minute-trading-extension-shell .tp-tabs button.active { color: #fff; box-shadow: inset 0 2px 5px rgba(14, 31, 48, .28), 0 1px 2px rgba(38, 62, 84, .18); }
 #five-minute-trading-extension-shell .tp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 7px; align-items: end; }
-#five-minute-trading-extension-shell label { display: grid; gap: 3px; min-width: 0; color: #405c75; font-size: 10px; font-weight: 800; letter-spacing: .045em; text-transform: uppercase; }
-#five-minute-trading-extension-shell label input { width: 100%; font-size: 12px; font-weight: 650; text-transform: none; }
+#five-minute-trading-extension-shell label { display: grid; gap: 3px; min-width: 0; color: #405c75; font-size: 12px; font-weight: 800; letter-spacing: .045em; text-transform: uppercase; }
+#five-minute-trading-extension-shell label input { width: 100%; font-size: 14.4px; font-weight: 650; text-transform: none; }
 #five-minute-trading-extension-shell label.tp-check { display: flex; align-items: center; align-self: center; gap: 5px; color: #9a3d50; text-transform: none; }
 #five-minute-trading-extension-shell label.tp-check input { width: auto; min-height: auto; }
 
 #five-minute-trading-extension-shell .tp-multi { margin-top: 6px; padding-top: 5px; border-top: 1px solid #b8c8d7; }
-#five-minute-trading-extension-shell .tp-multi > div:first-child { display: flex; align-items: center; justify-content: space-between; color: #405c75; font-size: 10px; font-weight: 800; text-transform: uppercase; }
-#five-minute-trading-extension-shell #tp-add-row { width: 28px; min-height: 24px; padding: 0; }
-#five-minute-trading-extension-shell #tp-rows { display: grid; gap: 4px; margin-top: 4px; }
+#five-minute-trading-extension-shell .tp-multi > div:first-child { display: flex; align-items: center; justify-content: space-between; color: #405c75; font-size: 12px; font-weight: 800; text-transform: uppercase; }
+#five-minute-trading-extension-shell #tp-add-row,
+#five-minute-trading-extension-shell #tp-add-sym-row { width: 28px; min-height: 24px; padding: 0; }
+#five-minute-trading-extension-shell #tp-rows,
+#five-minute-trading-extension-shell #tp-sym-rows { display: grid; gap: 4px; margin-top: 4px; }
 #five-minute-trading-extension-shell .tp-row { display: grid; grid-template-columns: 1fr 1fr .8fr 25px; gap: 4px; align-items: end; }
-#five-minute-trading-extension-shell .tp-row input { min-height: 27px; padding: 2px 4px; font: 11px ui-monospace, monospace; }
-#five-minute-trading-extension-shell .tp-remove-row { min-height: 25px; padding: 0; border-color: #d69aa6; background: #fff1f4; color: #a42f45; }
+#five-minute-trading-extension-shell .tp-sym-row { grid-template-columns: 1fr 1fr 25px; }
+#five-minute-trading-extension-shell .tp-row input { min-height: 27px; padding: 2px 4px; font: 13.2px ui-monospace, monospace; }
+#five-minute-trading-extension-shell .tp-remove-row,
+#five-minute-trading-extension-shell .tp-remove-sym-row { min-height: 25px; padding: 0; border-color: #d69aa6; background: #fff1f4; color: #a42f45; }
+#five-minute-trading-extension-shell #tp-sym-submit { width: 100%; margin-top: 6px; border-color: #5b3e7d; background: #8153a5; color: #fff; }
 
 #five-minute-trading-extension-shell .tp-mtp-exceptions { margin-top: 6px; padding-top: 5px; border-top: 1px solid #b8c8d7; }
-#five-minute-trading-extension-shell .tp-mtp-exceptions > div:first-child { display: flex; align-items: center; justify-content: space-between; color: #405c75; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+#five-minute-trading-extension-shell .tp-mtp-exceptions > div:first-child { display: flex; align-items: center; justify-content: space-between; color: #405c75; font-size: 12px; font-weight: 800; text-transform: uppercase; }
 #five-minute-trading-extension-shell #tp-add-mtp-exception { width: 28px; min-height: 24px; padding: 0; }
 #five-minute-trading-extension-shell #tp-mtp-exception-rows { display: grid; max-height: 116px; gap: 4px; margin-top: 4px; overflow-y: auto; }
 #five-minute-trading-extension-shell .tp-mtp-exception-row { display: grid; grid-template-columns: 1.25fr .75fr 25px; gap: 4px; align-items: end; }
-#five-minute-trading-extension-shell .tp-mtp-exception-row input { min-height: 27px; padding: 2px 4px; font: 11px ui-monospace, monospace; }
+#five-minute-trading-extension-shell .tp-mtp-exception-row input { min-height: 27px; padding: 2px 4px; font: 13.2px ui-monospace, monospace; }
 #five-minute-trading-extension-shell .tp-remove-mtp-exception { min-height: 25px; padding: 0; border-color: #d69aa6; background: #fff1f4; color: #a42f45; }
 #five-minute-trading-extension-shell .tp-mtp-exception-row.invalid input { border-color: #d93654; background: #ffe9ee; color: #8b2135; box-shadow: 0 0 0 1px rgba(217, 54, 84, .22); }
 
 #five-minute-trading-extension-shell .tp-sq { display: grid; gap: 6px; }
 #five-minute-trading-extension-shell .tp-sq[hidden] { display: none; }
 #five-minute-trading-extension-shell .tp-sq-positions,
-#five-minute-trading-extension-shell .tp-sq-summary { display: flex; align-items: center; gap: 9px; padding: 5px 7px; border: 1px solid #c2b4c5; border-radius: 7px; background: #f4edf5; color: #684d68; font-size: 10px; }
+#five-minute-trading-extension-shell .tp-sq-summary { display: flex; align-items: center; gap: 9px; padding: 5px 7px; border: 1px solid #c2b4c5; border-radius: 7px; background: #f4edf5; color: #684d68; font-size: 12px; }
 #five-minute-trading-extension-shell .tp-sq-positions span,
 #five-minute-trading-extension-shell .tp-sq-summary span { margin-right: auto; font-weight: 800; text-transform: uppercase; }
 #five-minute-trading-extension-shell .tp-sq-positions strong,
-#five-minute-trading-extension-shell .tp-sq-summary strong { font-size: 10px; }
+#five-minute-trading-extension-shell .tp-sq-summary strong { font-size: 12px; }
+#five-minute-trading-extension-shell .tp-sq-positions i { display: inline-block; max-width: 72px; overflow: hidden; font-style: normal; text-overflow: ellipsis; vertical-align: bottom; white-space: nowrap; }
 #five-minute-trading-extension-shell .tp-sq-grid { display: grid; grid-template-columns: .6fr 1.4fr; gap: 5px; align-items: end; }
 #five-minute-trading-extension-shell .tp-sq-grid input { min-width: 0; }
-#five-minute-trading-extension-shell .tp-sq-plan { min-height: 30px; padding: 6px; border: 1px solid #c2b4c5; border-radius: 5px; background: #f4edf5; color: #684d68; font: 10px/1.4 ui-monospace, monospace; }
+#five-minute-trading-extension-shell .tp-sq-plan { min-height: 30px; padding: 6px; border: 1px solid #c2b4c5; border-radius: 5px; background: #f4edf5; color: #684d68; font: 12px/1.4 ui-monospace, monospace; }
 #five-minute-trading-extension-shell #tp-sq-submit { width: 100%; border-color: #744769; background: #925983; color: #fff; }
 
 #five-minute-trading-extension-shell .tp-mint { display: grid; gap: 6px; }
-#five-minute-trading-extension-shell .tp-mint-head { display: flex; align-items: center; justify-content: space-between; color: #6f5619; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+#five-minute-trading-extension-shell #tp-mint-slug { font: 13.2px ui-monospace, monospace; }
+#five-minute-trading-extension-shell .tp-mint-head { display: flex; align-items: center; justify-content: space-between; color: #6f5619; font-size: 12px; font-weight: 800; text-transform: uppercase; }
 #five-minute-trading-extension-shell .tp-mint-head button { min-height: 24px; padding: 2px 6px; }
 #five-minute-trading-extension-shell .tp-mint-markets { display: grid; gap: 4px; }
 #five-minute-trading-extension-shell .tp-mint-markets button { display: grid; gap: 1px; padding: 5px 7px; border-color: #c9b77f; background: #fff8df; color: #6f5619; text-align: left; }
-#five-minute-trading-extension-shell .tp-mint-markets button span { display: flex; justify-content: space-between; font-size: 10px; text-transform: uppercase; }
-#five-minute-trading-extension-shell .tp-mint-markets button strong { overflow: hidden; font: 10px/1.4 ui-monospace, monospace; text-overflow: ellipsis; white-space: nowrap; }
+#five-minute-trading-extension-shell .tp-mint-markets button span { display: flex; justify-content: space-between; font-size: 12px; text-transform: uppercase; }
+#five-minute-trading-extension-shell .tp-mint-markets button strong { overflow: hidden; font: 12px/1.4 ui-monospace, monospace; text-overflow: ellipsis; white-space: nowrap; }
 #five-minute-trading-extension-shell .tp-mint-markets button.active { border-color: #805b12; background: #f1d98b; box-shadow: inset 0 0 0 1px #a67618; }
 #five-minute-trading-extension-shell #tp-mint-submit { width: 100%; border-color: #805b12; background: #a67618; color: #fff; }
 
 #five-minute-trading-extension-shell .tp-actions { display: flex; gap: 6px; margin-top: 7px; }
 #five-minute-trading-extension-shell .tp-actions[hidden] { display: none; }
-#five-minute-trading-extension-shell .tp-actions button { flex: 1; }
+#five-minute-trading-extension-shell .tp-actions button { min-height: 34px; flex: 1; overflow-wrap: anywhere; font-size: 13.2px; line-height: 1.2; }
 #five-minute-trading-extension-shell #tp-buy-up { border-color: #1c5944; background: #246b52; color: #f2fff9; box-shadow: 0 2px 5px rgba(22, 83, 61, .22); }
 #five-minute-trading-extension-shell #tp-buy-down { border-color: #6e3040; background: #823d4f; color: #fff5f7; box-shadow: 0 2px 5px rgba(112, 42, 59, .22); }
-#five-minute-trading-extension-shell .tp-output { min-height: 28px; padding: 5px 2px; color: #405970; font: 10px/1.4 ui-monospace, monospace; overflow-wrap: anywhere; }
+#five-minute-trading-extension-shell .tp-output { min-height: 28px; padding: 5px 2px; color: #405970; font: 12px/1.4 ui-monospace, monospace; overflow-wrap: anywhere; }
 #five-minute-trading-extension-shell .tp-output.success { color: #17845f; }
 #five-minute-trading-extension-shell .tp-output.failure { color: #bd314b; }
 
-#five-minute-trading-extension-shell .tp-current-head { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; border-top: 1px solid #b3c4d5; color: #405c75; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+#five-minute-trading-extension-shell .tp-current-head { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; border-top: 1px solid #b3c4d5; color: #405c75; font-size: 12px; font-weight: 800; text-transform: uppercase; }
 #five-minute-trading-extension-shell .tp-current-head button { min-height: 24px; padding: 2px 6px; }
+#five-minute-trading-extension-shell .tp-market-summary { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; padding: 5px 6px; border: 1px solid #b8c8d7; border-radius: 6px; background: #edf4f8; font: 10.8px/1.35 ui-monospace, monospace; }
+#five-minute-trading-extension-shell .tp-market-summary[hidden] { display: none; }
+#five-minute-trading-extension-shell .tp-market-summary-figures { display: flex; min-width: 0; flex: 1; flex-wrap: wrap; gap: 1px 7px; }
+#five-minute-trading-extension-shell .tp-market-summary-figures small { width: 100%; color: #6c7f91; font-size: 9.6px; }
+#five-minute-trading-extension-shell .tp-market-summary strong.profit { color: #13845e; }
+#five-minute-trading-extension-shell .tp-market-summary strong.loss { color: #c3334f; }
+#five-minute-trading-extension-shell .tp-market-summary button { min-height: 27px; padding: 3px 6px; border-color: #a52f48; background: #bb3c55; color: #fff; font-size: 10.8px; }
 #five-minute-trading-extension-shell .tp-list { min-height: 75px; flex: 1; overflow: auto; border: 1px solid #c0cedb; border-radius: 7px; background: #f7fafc; }
 #five-minute-trading-extension-shell .tp-empty { padding: 26px 8px; color: #71869b; text-align: center; }
-#five-minute-trading-extension-shell .tp-item { display: grid; gap: 2px; padding: 6px; border-bottom: 1px solid #d0dce7; font: 10px/1.4 ui-monospace, monospace; }
+#five-minute-trading-extension-shell .tp-item { display: grid; gap: 2px; padding: 6px; border-bottom: 1px solid #d0dce7; font: 12px/1.4 ui-monospace, monospace; }
 #five-minute-trading-extension-shell .tp-item > span { overflow: hidden; color: #60778f; text-overflow: ellipsis; white-space: nowrap; }
+#five-minute-trading-extension-shell .tp-item > .tp-position-value { color: #176d57; font-weight: 800; }
 #five-minute-trading-extension-shell .tp-item > button { justify-self: end; min-height: 23px; padding: 2px 6px; border-color: #d69aa6; background: #fff1f4; color: #a42f45; }
 #five-minute-trading-extension-shell .tp-item-actions { display: flex; gap: 4px; }
 #five-minute-trading-extension-shell .tp-item-actions input { width: 70px; min-height: 24px; padding: 2px 5px; }
 #five-minute-trading-extension-shell .tp-item-actions button { min-height: 24px; padding: 2px 6px; border-color: #d69aa6; background: #fff1f4; color: #a42f45; }
+#five-minute-trading-extension-shell .tp-item-actions button[data-action="sell-all"] { margin-left: auto; border-color: #a52f48; background: #bb3c55; color: #fff; }
+
+#five-minute-trading-extension-shell .tp-spreads { display: grid; max-height: 52px; flex: none; gap: 1px; margin-top: 4px; padding: 3px 4px 1px; overflow-y: auto; border-top: 1px solid #b3c4d5; color: #71869b; font: 9.6px/1.35 ui-monospace, monospace; }
+#five-minute-trading-extension-shell .tp-spread-row { display: flex; min-width: 0; align-items: center; gap: 5px; white-space: nowrap; }
+#five-minute-trading-extension-shell .tp-spread-market { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; }
+#five-minute-trading-extension-shell .tp-spread-buy { color: #13845e; }
+#five-minute-trading-extension-shell .tp-spread-sell { color: #c3334f; }
+#five-minute-trading-extension-shell .tp-spread-row i { min-width: 40px; color: #60778f; font-style: normal; text-align: right; }
 
 #five-minute-trading-extension-shell #tp-restore { display: none; }
 #five-minute-trading-extension-shell #tp-resize { position: absolute; right: 0; bottom: 0; width: 17px; height: 17px; cursor: nwse-resize; touch-action: none; }

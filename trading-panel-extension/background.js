@@ -2,13 +2,95 @@ const PANEL_MODE_MENU_ID = 'polymarket-trading-toggle-panel-mode';
 const SERVER_SETTINGS_MENU_ID = 'polymarket-trading-server-settings';
 const SERVER_CONFIG_KEY = 'tradingPanelServerConfig';
 
+function parseJsonArray(value) {
+  if (Array.isArray(value)) return value;
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function polymarketSlug(pageUrl) {
+  try {
+    const url = new URL(pageUrl);
+    if (!/(^|\.)polymarket\.com$/i.test(url.hostname)) return '';
+    const parts = url.pathname.split('/').filter(Boolean);
+    return decodeURIComponent(parts.at(-1) || '').toLowerCase();
+  } catch {
+    return '';
+  }
+}
+
+async function fetchJson(url) {
+  const response = await fetch(url, { method: 'GET', cache: 'no-store', headers: { accept: 'application/json' } });
+  if (!response.ok) throw new Error(`Market lookup returned HTTP ${response.status}.`);
+  return response.json();
+}
+
+async function resolvePolymarketMarket(pageUrl) {
+  const urlSlug = polymarketSlug(pageUrl);
+  if (!urlSlug || !/^[a-z0-9][a-z0-9-]*$/.test(urlSlug)) throw new Error('unavailable');
+
+  let candidate = null;
+  try {
+    const event = await fetchJson(`https://gamma-api.polymarket.com/events/slug/${encodeURIComponent(urlSlug)}`);
+    const tradable = (Array.isArray(event?.markets) ? event.markets : []).filter(market =>
+      market?.enableOrderBook && market?.conditionId && !market?.closed
+    );
+    candidate = tradable.find(market => market.slug === urlSlug) || (tradable.length === 1 ? tradable[0] : null);
+  } catch {
+    // A direct market URL does not always have a corresponding event slug.
+  }
+
+  if (!candidate) {
+    try {
+      const market = await fetchJson(`https://gamma-api.polymarket.com/markets/slug/${encodeURIComponent(urlSlug)}`);
+      if (market?.slug === urlSlug) candidate = market;
+    } catch {
+      throw new Error('unavailable');
+    }
+  }
+
+  if (!candidate?.conditionId || !candidate?.slug) throw new Error('unavailable');
+  let clob;
+  try {
+    clob = await fetchJson(`https://clob.polymarket.com/markets/${encodeURIComponent(candidate.conditionId)}`);
+  } catch {
+    throw new Error('unavailable');
+  }
+  const tokens = Array.isArray(clob?.tokens) ? clob.tokens : [];
+  if (clob?.condition_id !== candidate.conditionId || clob?.market_slug !== candidate.slug || tokens.length !== 2 ||
+      tokens.some(token => !/^\d+$/.test(String(token?.token_id || '')) || !String(token?.outcome || '').trim())) {
+    throw new Error('unavailable');
+  }
+
+  const gammaOutcomes = parseJsonArray(candidate.outcomes).map(String);
+  const gammaTokenIds = parseJsonArray(candidate.clobTokenIds).map(String);
+  if (gammaOutcomes.length === 2 && gammaTokenIds.length === 2 && tokens.some((token, index) =>
+    token.outcome !== gammaOutcomes[index] || String(token.token_id) !== gammaTokenIds[index]
+  )) throw new Error('unavailable');
+
+  return {
+    slug: clob.market_slug,
+    conditionId: clob.condition_id,
+    outcomes: tokens.map(token => String(token.outcome)),
+    tokenIds: tokens.map(token => String(token.token_id)),
+    prices: tokens.map(token => {
+      const price = Number(token.price);
+      return price > 0 && price < 1 ? price : null;
+    })
+  };
+}
+
 async function serverConfig() {
   const stored = await chrome.storage.local.get({ [SERVER_CONFIG_KEY]: {} });
   const config = stored[SERVER_CONFIG_KEY] || {};
   const apiBaseUrl = String(config.apiBaseUrl || '').trim().replace(/\/+$/, '');
   const tradeSocketUrl = String(config.tradeSocketUrl || '').trim();
-  if (!/^https?:\/\/[^/]+$/i.test(apiBaseUrl)) throw new Error('Configure a valid HTTP API base URL in extension settings.');
-  if (!/^wss?:\/\/[^/]+$/i.test(tradeSocketUrl)) throw new Error('Configure a valid trading WebSocket URL in extension settings.');
+  if (!/^https?:\/\/[^/]+$/i.test(apiBaseUrl)) throw new Error('Configure a valid Trading Bridge HTTP API URL.');
+  if (!/^wss?:\/\/[^/]+$/i.test(tradeSocketUrl)) throw new Error('Configure a valid Trading Bridge WebSocket URL.');
   return { apiBaseUrl, tradeSocketUrl };
 }
 
@@ -22,7 +104,7 @@ function testSocket(url) {
     const socket = new WebSocket(url);
     const timeout = setTimeout(() => {
       socket.close();
-      reject(new Error('Trading WebSocket test timed out.'));
+      reject(new Error('Trading Bridge WebSocket test timed out.'));
     }, 8000);
     socket.onopen = () => {
       clearTimeout(timeout);
@@ -31,7 +113,7 @@ function testSocket(url) {
     };
     socket.onerror = () => {
       clearTimeout(timeout);
-      reject(new Error('Trading WebSocket connection failed.'));
+      reject(new Error('Trading Bridge WebSocket connection failed.'));
     };
   });
 }
@@ -47,9 +129,9 @@ async function configureActionMenu(enabled) {
     chrome.contextMenus.create({ id: PANEL_MODE_MENU_ID, ...properties });
   }
   try {
-    await chrome.contextMenus.update(SERVER_SETTINGS_MENU_ID, { title: 'Server settings', contexts: ['action'] });
+    await chrome.contextMenus.update(SERVER_SETTINGS_MENU_ID, { title: 'Trading Bridge settings', contexts: ['action'] });
   } catch {
-    chrome.contextMenus.create({ id: SERVER_SETTINGS_MENU_ID, title: 'Server settings', contexts: ['action'] });
+    chrome.contextMenus.create({ id: SERVER_SETTINGS_MENU_ID, title: 'Trading Bridge settings', contexts: ['action'] });
   }
 }
 
@@ -93,6 +175,12 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 });
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  if (message?.type === 'polymarket-trading-resolve-market') {
+    resolvePolymarketMarket(message.url)
+      .then(market => sendResponse({ ok: true, market }))
+      .catch(() => sendResponse({ ok: false, error: 'unavailable' }));
+    return true;
+  }
   if (message?.type === 'polymarket-trading-configure-side-panel') {
     configureSidePanel(Boolean(message.enabled))
       .then(() => sendResponse({ ok: true }))
@@ -117,7 +205,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       .then(async response => {
         await response.text();
         const serverTime = Date.parse(response.headers.get('date') || '');
-        if (!Number.isFinite(serverTime)) throw new Error('Mint server did not return its current time.');
+        if (!Number.isFinite(serverTime)) throw new Error('Trading Bridge did not return its current time.');
         const currentWindow = Math.floor(serverTime / 1000 / 300) * 300;
         const markets = Array.from({ length: 3 }, (_, index) => {
           const startsAt = currentWindow + index * 300;
@@ -125,14 +213,14 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         });
         sendResponse({ ok: true, serverTime, markets });
       })
-      .catch(error => sendResponse({ ok: false, error: error.message || 'Could not get mint server time.' }));
+      .catch(error => sendResponse({ ok: false, error: error.message || 'Could not get Trading Bridge time.' }));
     return true;
   }
   if (message?.type === 'polymarket-trading-mint') {
     const slug = String(message.slug || '').trim();
     const shares = Number(message.shares);
-    if (!/^btc-updown-5m-\d+$/.test(slug)) {
-      sendResponse({ ok: false, error: 'A valid BTC 5-minute market slug is required.' });
+    if (!/^[a-z0-9][a-z0-9-]{0,255}$/.test(slug)) {
+      sendResponse({ ok: false, error: 'A valid Polymarket market slug is required.' });
       return false;
     }
     if (!Number.isFinite(shares) || shares <= 0 || shares > 1000000) {
@@ -152,9 +240,9 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         try {
           data = text ? JSON.parse(text) : {};
         } catch {
-          throw new Error(`Mint server returned invalid JSON (HTTP ${response.status}).`);
+          throw new Error(`Trading Bridge returned invalid JSON (HTTP ${response.status}).`);
         }
-        if (!response.ok) throw new Error(data?.message || data?.error || `Mint server returned HTTP ${response.status}.`);
+        if (!response.ok) throw new Error(data?.message || data?.error || `Trading Bridge returned HTTP ${response.status}.`);
         sendResponse({ ok: true, data });
       })
       .catch(error => sendResponse({ ok: false, error: error.message || 'Mint request failed.' }));
