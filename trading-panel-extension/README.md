@@ -8,8 +8,8 @@
 6. After installing or updating the unpacked extension, click its reload button on
    `chrome://extensions`, then reload the target browser tab.
 
-The native panel appears automatically on `https://upordown.pro/polymarket/live*`,
-including `/live2/` and the root `https://upordown.pro/live3` endpoint. On
+The native panel appears automatically on the `https://upordown.pro/polymarket/live`
+endpoint. On
 UpOrDown, it reads the final URL slug,
 uses Gamma only to discover the condition ID, and verifies the exact binary
 market, outcome names, token IDs, and prices against the public CLOB API. An

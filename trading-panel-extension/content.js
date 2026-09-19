@@ -2,7 +2,7 @@
   'use strict';
 
   const isSidePanel = location.protocol === 'chrome-extension:' && location.pathname.endsWith('/sidepanel.html');
-  const isTradingPage = location.pathname.startsWith('/polymarket/live') || /^\/live3(?:\/|$)/i.test(location.pathname);
+  const isTradingPage = /^\/polymarket\/live\/?$/i.test(location.pathname);
   if (window.top !== window || document.getElementById('five-minute-trading-extension-shell')) return;
   if (!isSidePanel && (!/^upordown\.pro$/i.test(location.hostname) || !isTradingPage)) return;
 
